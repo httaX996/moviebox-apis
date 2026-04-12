@@ -1174,279 +1174,43 @@ async function handleDownload(url, request) {
 function getHomePage() {
 
     const html = `<!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MovieBox API - Cloudflare Workers</title>
-
+    <title>CK CineMAX</title>
     <style>
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-
-            line-height: 1.6;
-
-            color: #333;
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            min-height: 100vh;
-
-            padding: 20px;
-
-        }
-
-        .container {
-
-            max-width: 800px;
-
-            margin: 0 auto;
-
-            background: white;
-
-            border-radius: 15px;
-
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-
-            overflow: hidden;
-
-        }
-
-        .header {
-
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
             color: white;
-
-            padding: 30px;
-
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-
         }
 
-        .header h1 {
-
-            font-size: 2.5em;
-
+        .container h1 {
+            font-size: 60px;
             margin-bottom: 10px;
-
-            font-weight: 700;
-
         }
 
-        .header p {
-
-            font-size: 1.1em;
-
-            opacity: 0.9;
-
+        .container p {
+            font-size: 18px;
+            color: #cbd5f5;
         }
-
-        .badge {
-
-            display: inline-block;
-
-            background: #48bb78;
-
-            color: white;
-
-            padding: 5px 12px;
-
-            border-radius: 20px;
-
-            font-size: 0.85em;
-
-            margin-top: 10px;
-
-        }
-
-        .content { padding: 30px; }
-
-        .feature-box {
-
-            background: #e6fffa;
-
-            border-radius: 10px;
-
-            padding: 20px;
-
-            margin: 20px 0;
-
-            border-left: 5px solid #48bb78;
-
-        }
-
-        .feature-box h3 {
-
-            color: #48bb78;
-
-            margin-bottom: 15px;
-
-        }
-
-        .feature-box ul {
-
-            list-style: none;
-
-            padding-left: 0;
-
-        }
-
-        .feature-box li {
-
-            padding: 5px 0;
-
-            color: #2d3748;
-
-        }
-
-        .feature-box li:before {
-
-            content: "✓ ";
-
-            color: #48bb78;
-
-            font-weight: bold;
-
-        }
-
-        .endpoint {
-
-            background: #f8f9fa;
-
-            border-radius: 10px;
-
-            padding: 20px;
-
-            margin-bottom: 20px;
-
-            border-left: 5px solid #667eea;
-
-        }
-
-        .endpoint h3 {
-
-            color: #667eea;
-
-            margin-bottom: 10px;
-
-        }
-
-        .status {
-
-            display: inline-block;
-
-            background: #48bb78;
-
-            color: white;
-
-            padding: 4px 8px;
-
-            border-radius: 3px;
-
-            font-size: 0.8em;
-
-            font-weight: bold;
-
-        }
-
     </style>
-
 </head>
-
 <body>
 
     <div class="container">
-
-        <div class="header">
-
-            <h1>🎬 MovieBox API</h1>
-
-            <p>Powered by Cloudflare Workers</p>
-
-            <span class="badge">✨ Streaming Optimized</span>
-
-            <span class="badge">⚡ Resumable Downloads</span>
-
-        </div>
-
-       
-
-        <div class="content">
-
-            <div class="feature-box">
-
-                <h3>🚀 Cloudflare Workers Features</h3>
-
-                <ul>
-
-                    <li>No timeout limits - stream files of any size</li>
-
-                    <li>Resumable downloads with HTTP range requests</li>
-
-                    <li>Global CDN distribution for fast access worldwide</li>
-
-                    <li>Efficient streaming without memory buffering</li>
-
-                    <li>Works great even on slow networks</li>
-
-                </ul>
-
-            </div>
-
-           
-
-            <div class="endpoint">
-
-                <h3>📥 API Endpoints</h3>
-
-                <p><strong>All endpoints fully operational with streaming support:</strong></p>
-
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-
-                    <li>🔍 <code>GET /api/search/:query</code> - Search movies & TV series</li>
-
-                    <li>📋 <code>GET /api/info/:movieId</code> - Get detailed information</li>
-
-                    <li>📥 <code>GET /api/sources/:movieId</code> - Get download sources</li>
-
-                    <li>🏠 <code>GET /api/homepage</code> - Featured content</li>
-
-                    <li>🔥 <code>GET /api/trending</code> - Trending content</li>
-
-                    <li>📺 <code>GET /api/stream?url=...</code> - Video streaming (with seeking)</li>
-
-                    <li>⚡ <code>GET /api/download?url=...</code> - Download proxy (resumable)</li>
-
-                </ul>
-
-            </div>
-
-           
-
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f7fafc; border-radius: 10px;">
-
-                <h3 style="color: #2d3748; margin-bottom: 10px;">Ready for Cloudflare Deployment</h3>
-
-                <p style="color: #666;">Deploy with: <code>wrangler deploy</code></p>
-
-            </div>
-
-        </div>
-
+        <h1>CK CineMAX</h1>
+        <p>Made By CHETHMINA KAVISHAN</p>
     </div>
 
 </body>
-
 </html>`;
 
    
