@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 
 
-const SELECTED_HOST = "moviebox.ph";
+const SELECTED_HOST = "h5.aoneroom.com";
 
 const HOST_URL = `https://${SELECTED_HOST}`;
 
