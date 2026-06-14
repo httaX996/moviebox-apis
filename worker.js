@@ -10,7 +10,7 @@ const MIRROR_HOSTS = [
     "netnaija.video"
 ];
 
-const SELECTED_HOST = "h5.aoneroom.com";
+const SELECTED_HOST = "moviebox.ph";
 const HOST_URL = `https://${SELECTED_HOST}`;
 
 const DEFAULT_HEADERS = {
