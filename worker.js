@@ -169,29 +169,29 @@ async function handleSearch(query, url) {
     const perPage = parseInt(urlObj.searchParams.get('perPage')) || 24;
     const subjectType = parseInt(urlObj.searchParams.get('type')) || SubjectType.ALL;
     
-    const payload = {
+    // MovieBox නවතම API එකට අනුව දැන් GET රික්වෙස්ට් එකක් සහ Query Params භාවිතා කල යුතුයි
+    const searchParams = new URLSearchParams({
         keyword: query,
-        page,
-        perPage,
-        subjectType
-    };
+        page: page.toString(),
+        perPage: perPage.toString(),
+        subjectType: subjectType.toString()
+    });
     
-    const response = await makeApiRequest(`${HOST_URL}/wefeed-h5-bff/web/subject/search`, {
-        method: 'POST',
+    const response = await makeApiRequest(`${HOST_URL}/wefeed-h5-bff/web/subject/search?${searchParams.toString()}`, {
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+            'Accept': 'application/json'
+        }
     });
     
     const data = await response.json();
     let content = processApiResponse(data);
     
-    if (subjectType !== SubjectType.ALL && content.items) {
+    if (subjectType !== SubjectType.ALL && content && content.items) {
         content.items = content.items.filter(item => item.subjectType === subjectType);
     }
     
-    if (content.items) {
+    if (content && content.items) {
         content.items.forEach(item => {
             if (item.cover && item.cover.url) {
                 item.thumbnail = item.cover.url;
@@ -212,6 +212,7 @@ async function handleSearch(query, url) {
         }
     });
 }
+
 
 async function handleInfo(movieId) {
     const params = new URLSearchParams({ subjectId: movieId });
